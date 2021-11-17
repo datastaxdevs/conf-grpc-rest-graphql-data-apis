@@ -9,11 +9,14 @@ This intructions will lead you to step by step operations for the talks at Devel
 
 ## Table of content
 
-1. [Create Astra Instance](#1-create-astra-instance)
-2. [Working with Cassandra](#2-working-with-cassandra)
-3. [Working with REST API](#3-working-with-rest-api)
-4. [Working with DOCUMENT API](#4-working-with-document-api)
-5. [Working with GRAPHQL API](#5-working-with-graphql-api)
+1. [Show me some Api Code](https://github.com/datastaxdevs/conference-2021-developer-week-austin/tree/main/sample-code)
+2. [Show me Docker File](https://github.com/datastaxdevs/conference-2021-developer-week-austin/blob/main/sample-docker/docker-compose.yml)
+3. [Show me the SLIDES](https://github.com/datastaxdevs/conference-2021-developer-week-austin/blob/main/slides.pdf)
+3. [Create Astra Instance](#1-create-astra-instance)
+4. [Working with Cassandra](#2-working-with-cassandra)
+5. [Working with REST API](#3-working-with-rest-api)
+6. [Working with DOCUMENT API](#4-working-with-document-api)
+7. [Working with GRAPHQL API](#5-working-with-graphql-api)
 
 ## 1. Create Astra Instance
 

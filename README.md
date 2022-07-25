@@ -154,7 +154,7 @@ Now launch the swagger UI
 
  - Click on the "Connect" tab at the top, and then on the "REST API" entry in the left nav.
 
-![image](pics/stargate-connect-restapi?raw=true)
+![image](pics/stargate-connect-restapi.png?raw=true)
 
 Scroll down to the "Launching Swagger UI" section, and click the link.
 

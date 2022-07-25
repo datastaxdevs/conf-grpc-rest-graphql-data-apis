@@ -54,7 +54,7 @@ The status will change to `Active` when the database is ready, this will only ta
 
 **✅ Check that our keyspace exist**
 
-Click your database name, locate the ``CQL Console` TAB and enter this first command:
+Click your database name, locate the `CQL Console` TAB and enter this first command:
 
 ```sql
 describe keyspaces;

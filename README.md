@@ -1,9 +1,9 @@
-## 🎓🔥 Expose Rest,Graphql,Grpc Apis on Top for Your Databases 🔥🎓
+## 🎓🔥 Expose Rest, Graphql, Grpc Apis on Top for Your Databases 🔥🎓
 
 [![License Apache2](https://img.shields.io/hexpm/l/plug.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 [![Discord](https://img.shields.io/discord/685554030159593522)](https://discord.com/widget?id=685554030159593522&theme=dark)
 
-This intructions will lead you to step by step operations for the talks at DeveloperWeek Austin
+This instructions will lead you to step by step operations for the talks at DeveloperWeek Austin
 
 ## Table of content
 
@@ -34,13 +34,15 @@ You will find below which values to enter for each field.
 
 - **For the database name** - `free_db.` While Astra allows you to fill in these fields with values of your own choosing, please follow our recommendations to ensure the application runs properly.
 
-- **For the keyspace name** - `ks1`. It's really important that you use the name "free" for the code to work.
+- **For the keyspace name** - `ks1`. It's really important that you use the name "ks1" for the code to work.
 
-_You can technically use whatever you want and update the code to reflect the keyspace. This is really to get you on a happy path for the first run._
+_You can technically use whatever you want and update the code to reflect the keyspace name. This is really to get you on a happy path for the first run._
 
-- **For provider and region**: Choose and provider (either GCP or AWS). Region is where your database will reside physically (choose one close to you or your users).
+- **For provider and region**: Choose GCP as a provider. Region is where your database will reside physically (choose one close to you or your users...you may not have a lot of "free" choices).
 
 - **Create the database**. Review all the fields to make sure they are as shown, and click the `Create Database` button.
+
+- **Save your secure token details**: It's a good idea to save the auto-generated token details off at this point.  You can click the "Copy" icon or download them locally as a JSON file.
 
 You will see your new database `pending` in the Dashboard.
 
@@ -52,7 +54,7 @@ The status will change to `Active` when the database is ready, this will only ta
 
 **✅ Check that our keyspace exist**
 
-Click your database name, locate the ``CQL Console` TAB and enter this first command:
+Click your database name, locate the `CQL Console` TAB and enter this first command:
 
 ```sql
 describe keyspaces;
@@ -89,12 +91,12 @@ describe ks1;
 
 ```sql
 INSERT INTO videos(videoid, email, title, upload, url, tags, frames, formats)
-VALUES(uuid(), 'clu@sample.com', 'sample video', 
+VALUES(uuid(), 'clu@sample.com', 'sample video',
      toTimeStamp(now()), 'http://google.fr',
      { 'cassandra','accelerate','2020'},
-     [ 1, 2, 3, 4], 
+     [ 1, 2, 3, 4],
      { 'mp4':{width:1,height:1},'ogg':{width:1,height:1}});
-     
+
 INSERT INTO videos(videoid, email, title, upload, url)
 VALUES(uuid(), 'clu@sample.com', 'video2', toTimeStamp(now()), 'http://google.fr');
 ```
@@ -110,7 +112,7 @@ INSERT INTO videos JSON '{
      "url": "http://google.fr",
      "frames": [1,2,3,4],
      "tags":   [ "cassandra","accelerate", "2020"],
-     "formats": { 
+     "formats": {
         "mp4": {"width":1,"height":1},
         "ogg": {"width":1,"height":1}
      }
@@ -142,20 +144,34 @@ Role: `Database Administrator`
 
 Copy the token value (eg `AstraCS:KDfdKeNREyWQvDpDrBqwBsUB:ec80667c....`) in your clipboard and save the CSV this value would not be provided afterward.
 
+_If you have your auto-generated token details from before, you should be able to skip this step._
+
 **👁️ Expected output**
 
 ![image](pics/astra-token.png?raw=true)
 
 Now launch the swagger UI
 
+ - Click on the "Connect" tab at the top, and then on the "REST API" entry in the left nav.
+
+![image](pics/stargate-connect-restapi.png?raw=true)
+
+Scroll down to the "Launching Swagger UI" section, and click the link.
+
+_Everyone's Swagger UI link will be unique to their instance of Astra DB._
+
 ![image](pics/launch-swagger.png?raw=true)
 
-This walkthrough has been realized using the [REST API Quick Start](https://stargate.io/docs/stargate/0.1/quickstart/quick_start-rest.html). Here we will the the [DATA](http://localhost:8082/swagger-ui/#/data) or SwaggerUI
+You can also follow the link to the [REST API Quick Start](https://stargate.io/docs/stargate/1.0/quickstart/quick_start-rest.html) and run Stargate locally. Here we will use the [SwaggerUI](http://localhost:8082/swagger-ui/#/data).
 
 #### ✅ 3b. List keyspaces
 
+- Scroll to the "schemas" section of the Swagger spec.
+
+- For all exercises, remember that we're using the *v2* API version.
+
 - [`GET: /v2/schemas/keyspaces`](http://localhost:8082/swagger-ui/#/schemas/getAllKeyspaces)
- 
+
 ![image](https://raw.githubusercontent.com/datastaxdevs/conference-2021-apachecon-stargate/main/pics/swagger-list-keyspace.png?raw=true)
 
 - Click `Try it out`
@@ -240,7 +256,7 @@ This walkthrough has been realized using the [REST API Quick Start](https://star
 
 #### ✅ 3f. Insert Rows
 
-*Notice than for the DML you move to `DATA`. Make sure you are using url with `V2`, `V1` would also work but this is NOT the same payload.* 
+*Notice for the DML you scroll to the `data` section. Make sure you are using url with `V2`, `V1` would also work but this is NOT the same payload.*
 
 - [POST /v2/keyspaces/{keyspaceName}/{tableName}](http://localhost:8082/swagger-ui/#/data/createRow)
 
@@ -323,28 +339,11 @@ You can note that the output code is `201` and return your primary key `{ "first
 - primaryKey; 'Cedrick`
 - Click Execute
 
-#### ✅ 3j. Searches
-
-- [GET /v2/keyspaces/{keyspaceName}/{tableName}](http://localhost:8082/swagger-ui/#/data/getRowWithWhere)
-
-![image](https://raw.githubusercontent.com/datastaxdevs/conference-2021-apachecon-stargate/main/pics/swagger-searchrows.png?raw=true)
-
-
-- X-Cassandra-Token: `<your_token>`
-- keyspaceName: `ks1`
-- tableName: `users`
-- whereClause; '{"firstname": {"$eq":"David"}}`
-- Click Execute
-
-I let you try with `{"lastname": {"$eq":"Gilardi"}}`.. expected right ?
-
-[🏠 Back to Table of Contents](#table-of-content)
-
 ## 4. Working with DOCUMENT API
 
 This walkthrough has been realized using the [Quick Start](https://stargate.io/docs/stargate/1.0/quickstart/quick_start-document.html)
 
-locate the Document part in the Swagger UI
+Scroll to the top to locate the "documents" section in the Swagger UI.
 
 ![image](pics/swagger-docs.png?raw=true)
 
@@ -390,7 +389,7 @@ locate the Document part in the Swagger UI
      "url": "http://google.fr",
      "frames": [1,2,3,4],
      "tags":   [ "cassandra","accelerate", "2020"],
-     "formats": { 
+     "formats": {
         "mp4": {"width":1,"height":1},
         "ogg": {"width":1,"height":1}
      }
@@ -445,14 +444,6 @@ locate the Document part in the Swagger UI
 
 This walkthrough has been realized using the [GraphQL Quick Start](https://stargate.io/docs/stargate/1.0/quickstart/quick_start-graphql.html)
 
-**✅ Open GraphQL Playground** :
-
-Open the playground
-![image](pics/launch-graphql.png?raw=true)
-
-**👁️ Expected output**
-![image](pics/playground-home.png?raw=true)
-
 **✅ Creating a keyspace** :
 
 Before you can start using the GraphQL API, you must first create a Cassandra keyspace and at least one table in your database. If you are connecting to a Cassandra database with existing schema, you can skip this step.
@@ -463,6 +454,15 @@ Then provide the keyspace name `library`:
 
 ![image](pics/create-keyspace-2.png?raw=true)
 
+**✅ Open GraphQL Playground** :
+
+Open the playground
+![image](pics/launch-graphql.png?raw=true)
+
+_Everyone's GraphQL Playground link will be unique to their instance of Astra DB._
+
+**👁️ Expected output**
+![image](pics/playground-home.png?raw=true)
 
 **✅ Creating a Table** :
 
@@ -531,7 +531,7 @@ mutation insert2Books {
 
 **✅ Read data** :
 
-Stay on the same screen and sinmply update the query with 
+Stay on the same screen and sinmply update the query with
 ```
 query oneBook {
     books (value: {title:"Moby Dick"}) {
@@ -552,6 +552,4 @@ query oneBook {
 
 ## THE END
 
-Congratulation your made it to the END.
-
-
+Congratulations, you made it to the END!

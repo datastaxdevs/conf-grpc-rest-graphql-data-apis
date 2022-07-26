@@ -459,6 +459,8 @@ Then provide the keyspace name `library`:
 Open the playground
 ![image](pics/launch-graphql.png?raw=true)
 
+_Everyone's GraphQL Playground link will be unique to their instance of Astra DB._
+
 **👁️ Expected output**
 ![image](pics/playground-home.png?raw=true)
 
@@ -550,4 +552,4 @@ query oneBook {
 
 ## THE END
 
-Congratulation your made it to the END.
+Congratulations, you made it to the END!

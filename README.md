@@ -505,7 +505,7 @@ First, let’s navigate to your new keyspace `library` inside the playground. Ch
 - Use this query
 ```
 mutation insert2Books {
-  moby: insertbooks(value: {title:"Moby Dick", author:"Herman Melvill"}) {
+  moby: insertbooks(value: {title:"Moby Dick", author:"Herman Melville"}) {
     value {
       title
     }
